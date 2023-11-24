@@ -11,7 +11,7 @@ const DataTable = ({ columns = [], data = [] }) => {
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <div>
+    <div style={{ marginTop: "60px" }}>
       <table className="table">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
