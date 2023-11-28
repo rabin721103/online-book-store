@@ -43,7 +43,7 @@ function AddUser({ editUser }) {
                 marginTop: "80px",
               }}
             >
-              Add User
+              Add/Manage User
             </Label>
           </div>
           <div className="form-group">

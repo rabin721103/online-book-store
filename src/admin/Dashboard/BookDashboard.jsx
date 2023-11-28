@@ -19,42 +19,42 @@ const BookDashboard = () => {
     return [
       {
         accessorKey: "bookId",
-        header: "bookId",
+        header: "BookId",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },
       },
       {
         accessorKey: "title",
-        header: "title",
+        header: "Title",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },
       },
       {
         accessorKey: "author",
-        header: "author",
+        header: "Author",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },
       },
       {
         accessorKey: "genre",
-        header: "genre",
+        header: "Genre",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },
       },
       {
         accessorKey: "price",
-        header: "price",
+        header: "Price",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },
       },
       {
         accessorKey: "availability",
-        header: "availability",
+        header: "Availability",
         cell: ({ getValue }) => {
           const isAvailable = getValue();
           return <div>{String(isAvailable)}</div>;

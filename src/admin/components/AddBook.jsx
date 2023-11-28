@@ -44,7 +44,7 @@ function AddBook({ editBook }) {
                 marginTop: "80px",
               }}
             >
-              Add Books
+              Add/Manage Books
             </Label>
           </div>
           <div className="form-group">

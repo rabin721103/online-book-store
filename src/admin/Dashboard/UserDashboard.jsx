@@ -19,28 +19,28 @@ const UserDashboard = () => {
     return [
       {
         accessorKey: "userId",
-        header: "userId",
+        header: "UserId",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },
       },
       {
         accessorKey: "username",
-        header: "username",
+        header: "Username",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },
       },
       {
         accessorKey: "email",
-        header: "email",
+        header: "E-mail",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },
       },
       {
         accessorKey: "role",
-        header: "role",
+        header: "Role",
         cell: ({ getValue }) => {
           return <div>{getValue()}</div>;
         },

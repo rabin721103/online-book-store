@@ -21,6 +21,6 @@ export const getBooks = async (data) => {
   return axiosInstance.get(`/books/`, data);
 };
 
-export const getUsers = async (data) => {
-  return axiosInstance.get(`/user/`, data);
+export const getUsers = async () => {
+  return axiosInstance.get(`/admin/users`);
 };

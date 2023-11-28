@@ -11,9 +11,13 @@ const AdminSidebar = () => {
         <nav
           id="sidebarMenu"
           className="collapse d-lg-block sidebar collapse bg-white"
+          style={{
+            background:
+              "background: linear-gradient(120deg, #313941, #302325);",
+          }}
         >
           <div className="position-sticky">
-            <div
+            {/* <div
               className="list-group list-group-flush mx-3 mt-4"
               style={{ "a:hover": "red" }}
             >
@@ -26,19 +30,20 @@ const AdminSidebar = () => {
                 <span>Dashboard</span>
               </Link>
               <Link
+                to="/admin/userdashboard"
+                className="list-group-item list-group-item-action py-2 ripple"
+              >
+                <i className="fas fa-chart-pie fa-fw me-3"></i>
+                <span>List User</span>
+              </Link>
+              <Link
                 to="/admin/bookdashboard"
                 className="list-group-item list-group-item-action py-2"
               >
                 <i className="fas fa-chart-area fa-fw me-3"></i>
-                <span>All Books</span>
+                <span>Book List</span>
               </Link>
-              <Link
-                to="/admin/AddBook"
-                className="list-group-item list-group-item-action py-2 "
-              >
-                <i className="fas fa-lock fa-fw me-3"></i>
-                <span>Add Books</span>
-              </Link>
+
               <Link
                 to={"/admin/AddUser"}
                 className="list-group-item list-group-item-action py-2"
@@ -46,12 +51,13 @@ const AdminSidebar = () => {
                 <i className="fas fa-chart-line fa-fw me-3"></i>
                 <span>Add Users</span>
               </Link>
+
               <Link
-                to="/admin/userdashboard"
-                className="list-group-item list-group-item-action py-2 ripple"
+                to="/admin/AddBook"
+                className="list-group-item list-group-item-action py-2 "
               >
-                <i className="fas fa-chart-pie fa-fw me-3"></i>
-                <span>List User</span>
+                <i className="fas fa-lock fa-fw me-3"></i>
+                <span>Add Books</span>
               </Link>
               <a
                 href="#"
@@ -67,6 +73,101 @@ const AdminSidebar = () => {
                 <i className="fas fa-building fa-fw me-3"></i>
                 <span>Orders</span>
               </a>
+            </div> */}
+
+            <div className="dropdown mx-3 mt-4">
+              <Link
+                to="/admin/welcomedashboard"
+                className="list-group-item list-group-item-action py-2 "
+                aria-current="true"
+              >
+                <i className="fas fa-tachometer-alt fa-fw me-3"></i>
+                <span>Dashboard</span>
+              </Link>
+
+              <button
+                className="list-group-item list-group-item-action py-2 ripple dropdown-toggle"
+                type="button"
+                id="userDropdown"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i className="fas fa-chart-pie fa-fw me-3"></i>
+                <span>Users</span>
+              </button>
+
+              <div className="dropdown-menu" aria-labelledby="userDropdown">
+                <Link to="/admin/userdashboard" className="dropdown-item">
+                  List Users
+                </Link>
+                <Link to="/admin/adduser" className="dropdown-item">
+                  Add Users
+                </Link>
+              </div>
+              {/* Books Section  */}
+              <button
+                className="list-group-item list-group-item-action py-2 ripple dropdown-toggle"
+                type="button"
+                id="userDropdown"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i className="fas fa-chart-pie fa-fw me-3"></i>
+                <span>Books</span>
+              </button>
+
+              <div className="dropdown-menu" aria-labelledby="userDropdown">
+                <Link to="/admin/bookdashboard" className="dropdown-item">
+                  List Books
+                </Link>
+                <Link to="/admin/AddBook" className="dropdown-item">
+                  Add Books
+                </Link>
+              </div>
+              {/* Orders Section */}
+              <button
+                className="list-group-item list-group-item-action py-2 ripple dropdown-toggle"
+                type="button"
+                id="userDropdown"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i className="fas fa-chart-pie fa-fw me-3"></i>
+                <span>Orders</span>
+              </button>
+
+              <div className="dropdown-menu" aria-labelledby="userDropdown">
+                <Link to="/admin/" className="dropdown-item">
+                  List Orders
+                </Link>
+                <Link to="/admin/" className="dropdown-item">
+                  Manage Orders
+                </Link>
+              </div>
+              {/* Reviews and Ratings  */}
+              <button
+                className="list-group-item list-group-item-action py-2 ripple dropdown-toggle"
+                type="button"
+                id="userDropdown"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i className="fas fa-chart-pie fa-fw me-3"></i>
+                <span>Reviews </span>
+              </button>
+
+              <div className="dropdown-menu" aria-labelledby="userDropdown">
+                <Link to="/admin/" className="dropdown-item">
+                  All Ratings
+                </Link>
+                <Link to="/admin/" className="dropdown-item">
+                  Manage Reviews
+                </Link>
+              </div>
             </div>
           </div>
         </nav>
@@ -76,6 +177,7 @@ const AdminSidebar = () => {
         <nav
           id="main-navbar"
           className="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+          style={{ background: "linear-gradient(120deg, #007bff, #d0314c)" }}
         >
           {/* <!-- Container wrapper --> */}
           <div className="container-fluid">
@@ -102,6 +204,7 @@ const AdminSidebar = () => {
               />
             </a>
             {/* <!-- Search form --> */}
+
             <form className="d-none d-md-flex input-group w-auto my-auto">
               <input
                 autoComplete="off"
