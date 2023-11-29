@@ -63,7 +63,7 @@ const UserDashboard = () => {
             );
             if (confirmDelete) {
               axiosInstance
-                .delete(`/user/${userId}`)
+                .delete(`/admin/users/${userId}`)
                 .then(() => {
                   refetch();
                   console.log("Delete successful for ID:", userId);

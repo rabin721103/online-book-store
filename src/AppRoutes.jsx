@@ -14,6 +14,7 @@ import EditUser from "./admin/components/EditUser";
 import EditBook from "./admin/components/EditBook";
 import BookDashboard from "./admin/Dashboard/BookDashboard";
 import UserDashboard from "./admin/Dashboard/UserDashboard";
+import Cart from "./site/cart/cart";
 
 const AppRoutes = () => {
   return (
@@ -49,7 +50,7 @@ const AppRoutes = () => {
             </Protected>
           }
         >
-          <Route index element={<BookDashboard />} />
+          <Route index element={<Cart />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />

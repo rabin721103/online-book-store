@@ -12,7 +12,7 @@ function EditUser() {
 
   const getUser = async () => {
     const response = await axiosInstance
-      .get(`/user/${id}`)
+      .get(`/admin/users/${id}`)
       .then((res) => res?.data)
       .catch(() => null);
 

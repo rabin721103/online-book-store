@@ -21,9 +21,9 @@ function AddUser({ editUser }) {
   const forSubmit = async (values, { resetForm }) => {
     try {
       if (editUser) {
-        await axiosInstance.put(`/user/${editUser?.userId}`, values);
+        await axiosInstance.put(`/admin/users/${editUser?.userId}`, values);
       } else {
-        await axiosInstance.post("/user/", values);
+        await axiosInstance.post("/auth/register", values);
       }
       navigate("/admin/userdashboard");
       // Reset the form after successful submission

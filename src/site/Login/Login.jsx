@@ -17,7 +17,7 @@ const Login = () => {
 
     if (response?.success) {
       localStorage.setItem("user", JSON.stringify(response?.response ?? ""));
-      navigate("/admin");
+      response?.response?.role === "ADMIN" ? navigate("/admin") : navigate("/");
     }
   };
 
@@ -28,7 +28,7 @@ const Login = () => {
       .catch(() => null);
 
     if (response?.success) {
-      localStorage.setItem("token", response?.response);
+      // localStorage.setItem("token", response?.response);
       getProfile();
     }
   };
