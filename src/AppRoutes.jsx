@@ -15,6 +15,7 @@ import EditBook from "./admin/components/EditBook";
 import BookDashboard from "./admin/Dashboard/BookDashboard";
 import UserDashboard from "./admin/Dashboard/UserDashboard";
 import Cart from "./site/cart/cart";
+import UserLayout from "./admin/components/UserLayout";
 
 const AppRoutes = () => {
   return (
@@ -46,11 +47,11 @@ const AppRoutes = () => {
           path="/cart"
           element={
             <Protected>
-              <Outlet />
+              <UserLayout />
             </Protected>
           }
         >
-          <Route index element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />

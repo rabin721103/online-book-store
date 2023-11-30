@@ -7,8 +7,14 @@ import {
   CardText,
   CardTitle,
 } from "reactstrap";
+import { addToCart, getAllFromCart } from "../../services/starWarsCharater";
 
 function Cards({ book }) {
+  const handleClick1 = async () => {
+    const res1 = addToCart(book?.bookId)
+      .then((response1) => response1?.data)
+      .catch(() => null);
+  };
   return (
     <div style={{ margin: "40px" }}>
       <Card
@@ -30,7 +36,9 @@ function Cards({ book }) {
             }}
           >
             <Button style={{ background: "blue" }}>Buy</Button>
-            <Button style={{ background: "DodgerBlue" }}>Add to Cart</Button>
+            <Button style={{ background: "DodgerBlue" }} onClick={handleClick1}>
+              Add to Cart
+            </Button>
           </div>
         </CardBody>
       </Card>

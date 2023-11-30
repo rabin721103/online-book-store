@@ -8,7 +8,7 @@ function Navbar(args) {
   return (
     <div>
       <nav
-        className="navbar navbar-expand-lg navbar-light"
+        className="navbar navbar-expand-lg navbar-light "
         style={{ background: "#6495ED" }}
       >
         <a
@@ -39,7 +39,7 @@ function Navbar(args) {
           id="navbarSupportedContent"
           style={{ display: "flex" }}
         >
-          <ul className="navbar-nav mr-auto">
+          <ul className="navbar-nav mr-5 nav-tabs nav-justified">
             <li className="nav-item active">
               <a className="nav-link" href="#">
                 Home <span className="sr-only">(current)</span>
@@ -79,11 +79,6 @@ function Navbar(args) {
                   ABC
                 </a>
               </div>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#">
-                TEST
-              </a>
             </li>
           </ul>
           <div

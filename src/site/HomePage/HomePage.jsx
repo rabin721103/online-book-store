@@ -5,6 +5,7 @@ import { Col } from "reactstrap";
 
 const HomePage = () => {
   const [books, setBooks] = useState([]);
+
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -18,7 +19,7 @@ const HomePage = () => {
     fetchBooks();
   }, []);
 
-  //localo cart fet5ch json
+  //local cart fetch json
   return (
     <div>
       <h3 style={{ marginLeft: "40px", marginTop: "10px" }}>Latest Books</h3>

@@ -34,45 +34,43 @@ const Login = () => {
   };
   return (
     <div>
-      <body>
-        <div className="container">
-          <div className="center">
-            <h1>Login</h1>
-            <form action="" method="POST">
-              <div className="txt_field">
-                <input
-                  type="text"
-                  name="text"
-                  required
-                  value={username}
-                  onChange={(e) => setusername(e.target.value)}
-                />
-                <span></span>
-                <label>Username</label>
-              </div>
-              <div className="txt_field">
-                <input
-                  type="password"
-                  name="password"
-                  required
-                  value={password}
-                  onChange={(e) => setpassword(e.target.value)}
-                />
-                <span></span>
-                <label>Password</label>
-              </div>
-              <div className="pass">Forget Password?</div>
-              <button type="button" onClick={handleClick}>
-                {" "}
-                Submit{" "}
-              </button>
-              <div className="signup_link">
-                Not a Member ? <a href="Register">Signup</a>
-              </div>
-            </form>
-          </div>
+      <div className="container">
+        <div className="center">
+          <h1>Login</h1>
+          <form action="" method="POST">
+            <div className="txt_field">
+              <input
+                type="text"
+                name="text"
+                required
+                value={username}
+                onChange={(e) => setusername(e.target.value)}
+              />
+              <span></span>
+              <label>Username</label>
+            </div>
+            <div className="txt_field">
+              <input
+                type="password"
+                name="password"
+                required
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
+              />
+              <span></span>
+              <label>Password</label>
+            </div>
+            <div className="pass">Forget Password?</div>
+            <button type="button" onClick={handleClick}>
+              {" "}
+              Submit{" "}
+            </button>
+            <div className="signup_link">
+              Not a Member ? <a href="Register">Signup</a>
+            </div>
+          </form>
         </div>
-      </body>
+      </div>
     </div>
   );
 };

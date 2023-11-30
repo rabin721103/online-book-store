@@ -24,3 +24,45 @@ export const getBooks = async (data) => {
 export const getUsers = async () => {
   return axiosInstance.get(`/admin/users`);
 };
+
+export const getAllFromCart = async () => {
+  await axiosInstance
+    .get("/cart")
+    .then((res) => {
+      const response = res?.data;
+      if (response?.statusCode === 200) {
+        localStorage.setItem("cart", JSON.stringify(response?.response || []));
+      }
+    })
+    .catch(() => null);
+};
+
+export const addToCart = async (bookId) => {
+  const response = await axiosInstance
+    .post("/cart/add", bookId)
+    .then((res) => res?.data)
+    .catch(() => null);
+  if (response?.success === true) {
+    getAllFromCart();
+  }
+};
+
+export const editCart = async (cartId, quantity) => {
+  const response = axiosInstance
+    .put(`/cart/update/${cartId}`, quantity)
+    .then((res) => res?.data)
+    .catch(() => null);
+  if (response?.success === true) {
+    getAllFromCart();
+  }
+};
+
+export const deleteBookFromCart = async (cartId) => {
+  const response = axiosInstance
+    .delete(`/cart/delete/${cartId}`)
+    .then((res) => res?.data)
+    .catch(() => null);
+  if (response?.success === true) {
+    getAllFromCart();
+  }
+};
