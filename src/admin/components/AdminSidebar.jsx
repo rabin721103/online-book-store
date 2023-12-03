@@ -107,6 +107,11 @@ const AdminSidebar = () => {
                   Manage Reviews
                 </Link>
               </div>
+
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <i className="fa-sharp fa-solid fa-house"></i> Visit User
+                Homepage
+              </Link>
             </div>
           </div>
         </nav>

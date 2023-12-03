@@ -11,9 +11,8 @@ import { addToCart, getAllFromCart } from "../../services/starWarsCharater";
 
 function Cards({ book }) {
   const handleClick1 = async () => {
-    const res1 = addToCart(book?.bookId)
-      .then((response1) => response1?.data)
-      .catch(() => null);
+    const res1 = await addToCart(book?.bookId);
+    window.alert(res1?.message);
   };
   return (
     <div style={{ margin: "40px" }}>

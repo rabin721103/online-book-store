@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar(args) {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,9 +47,12 @@ function Navbar(args) {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              {/* <a className="nav-link" href="#">
                 Books
-              </a>
+              </a> */}
+              <Link to="/" className="nav-link">
+                Books
+              </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="cart">

@@ -1,159 +1,115 @@
-import React from "react";
-import "./cart.css";
-import { Navbar } from "reactstrap";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import SingleCart from "./SingleCart";
+import { deleteBookFromCart, editCart } from "../../services/starWarsCharater";
 
 function Cart() {
   const cart = localStorage.getItem("cart");
-  const cartData = JSON.parse(cart || "[]");
+
+  const [cartItems, setCartItems] = useState(JSON.parse(cart || []));
+
+  const [total, setTotal] = useState(0);
+
+  const removeFromCart = async (cartId) => {
+    const response = await deleteBookFromCart(cartId);
+    if (response?.success) {
+      const carts = cartItems?.filter((item) => item?.cartId !== cartId);
+      setCartItems(carts);
+      window.alert("Book Deleted Successfully");
+    }
+  };
+
+  const updateFromCart = async (cartId, quantity) => {
+    const response = await editCart(cartId, quantity);
+    if (response?.success) {
+      let carts = [];
+
+      cartItems?.forEach((item) => {
+        if (item?.cartId === cartId) {
+          carts.push({ ...item, quantity: quantity });
+        } else {
+          carts.push(item);
+        }
+      });
+      setCartItems(carts);
+      window.alert(response?.message);
+    } else {
+      window.alert(response?.message);
+    }
+  };
+
+  useEffect(() => {
+    if (cartItems) {
+      setCartItems(cartItems);
+
+      let totalprice = 0;
+      cartItems.forEach((cart) => {
+        totalprice += cart?.quantity * cart?.book?.price;
+      });
+
+      setTotal(totalprice);
+    }
+  }, [cartItems]);
+
   return (
     <div>
-      <div>
-        <div className="container-fluid">
-          <h3>Your Cart</h3>
-          <div className="row">
-            <aside className="col-lg-1" />
-            <aside className="col-lg-7">
-              <div className="card">
-                <div className="table-responsive">
-                  <table className="table table-borderless table-shopping-cart">
-                    <thead className="text-muted">
-                      <tr className="small text-uppercase">
-                        <th scope="col">Book</th>
-                        <th scope="col" width="120">
-                          Quantity
-                        </th>
-                        <th scope="col" width="120">
-                          Price
-                        </th>
-                        <th
-                          scope="col"
-                          className="text-right d-none d-md-block"
-                          width="200"
-                        ></th>
-                      </tr>
-                    </thead>
-
-                    {cartData.map((cart, index) => {
-                      <tbody>
-                        <tr>
-                          <td>
-                            <figure className="itemside align-items-center">
-                              <div className="aside">
-                                <img
-                                  src="https://picsum.photos/300/200"
-                                  className="img-sm"
-                                />
-                              </div>
-
-                              <figcaption className="info">
-                                {" "}
-                                <a
-                                  href="#"
-                                  className="title text-dark"
-                                  data-abc="true"
-                                >
-                                  {cart?.book?.title}
-                                </a>
-                                <p className="text-muted small">
-                                  {cart?.book?.author}
-                                </p>
-                              </figcaption>
-                            </figure>
-                          </td>
-                          <td>
-                            {" "}
-                            <input
-                              type="number"
-                              placeholder="Quantity"
-                              min="0"
-                              required
-                            />
-                            {/* <select className="form-control">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                        </select>{" "} */}
-                          </td>
-                          <td>
-                            <div className="price-wrap">
-                              {" "}
-                              <var className="price">1000</var>{" "}
-                              <small className="text-muted">
-                                {" "}
-                                {cart?.book?.price}{" "}
-                              </small>{" "}
-                            </div>
-                          </td>
-                          <td className="text-right d-none d-md-block">
-                            {" "}
-                            <a
-                              data-original-title="Save to Wishlist"
-                              title=""
-                              href=""
-                              className="btn btn-light"
-                              data-toggle="tooltip"
-                              data-abc="true"
-                            >
-                              {" "}
-                              <i className="fa fa-heart"></i>
-                            </a>{" "}
-                            <a
-                              href=""
-                              className="btn btn-light"
-                              data-abc="true"
-                            >
-                              {" "}
-                              Remove
-                            </a>{" "}
-                          </td>
-                        </tr>
-                      </tbody>;
-                    })}
-                  </table>
-                </div>
+      <section className="pt-5 pb-5">
+        <div className="container">
+          <div className="row w-100">
+            <div className="col-lg-12 col-md-12 col-12">
+              <h3 className="display-5 mb-2 text-center">Your Cart</h3>
+              <p className="mb-5 text-center">
+                <i className="text-info font-weight-bold">{cartItems.length}</i>{" "}
+                items in your cart
+              </p>
+              <table
+                id="shoppingCart"
+                className="table table-condensed table-responsive"
+              >
+                <thead>
+                  <tr>
+                    <th style={{ width: "60%" }}>Product</th>
+                    <th style={{ width: "12%" }}>Price</th>
+                    <th style={{ width: "10%" }}>Quantity</th>
+                    <th style={{ width: "16%" }}></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems?.map((item, index) => (
+                    <SingleCart
+                      key={index}
+                      cart={item}
+                      updateFromCart={updateFromCart}
+                      removeFromCart={removeFromCart}
+                    />
+                  ))}
+                </tbody>
+              </table>
+              <div className="float-right text-right">
+                <h4 style={{ display: "inline-block", marginRight: "10px" }}>
+                  Subtotal:
+                </h4>
+                <h2 style={{ display: "inline-block" }}>Rs. {total}</h2>
               </div>
-            </aside>
-            <aside className="col-lg-3">
-              <div className="card mb-3">
-                <div className="">
-                  <div className="summary">
-                    <h3>Summary</h3>
-                    <div className="summary-item">
-                      <span className="text">Subtotal(Nrs.)</span>
-                      <span className="price">3600</span>
-                    </div>
-                    <div className="summary-item">
-                      <span className="text">Discount(Nrs.)</span>
-                      <span className="price">200</span>
-                    </div>
-                    <div className="summary-item">
-                      <span className="text">Shipping(Nrs.)</span>
-                      <span className="price">50</span>
-                    </div>
-                    <div className="summary-item">
-                      <span className="text">Total(Nrs.)</span>
-                      <span className="price">3450</span>
-                    </div>
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-lg btn-block"
-                    >
-                      Checkout
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-lg btn-block"
-                    >
-                      Back to Homepage
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </aside>
+            </div>
+          </div>
+          <div className="row mt-4 d-flex align-items-center">
+            <div className="col-sm-6 order-md-2 text-right">
+              <a
+                href="catalog.html"
+                className="btn btn-primary mb-4 btn-lg pl-5 pr-5"
+              >
+                Checkout
+              </a>
+            </div>
+            <div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+              <Link to="/">
+                <i className="fas fa-arrow-left mr-2"></i> Go Back
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

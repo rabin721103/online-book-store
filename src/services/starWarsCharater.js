@@ -42,27 +42,33 @@ export const addToCart = async (bookId) => {
     .post("/cart/add", bookId)
     .then((res) => res?.data)
     .catch(() => null);
-  if (response?.success === true) {
+  if (response?.success) {
     getAllFromCart();
   }
+  return response;
 };
 
 export const editCart = async (cartId, quantity) => {
-  const response = axiosInstance
+  const response = await axiosInstance
     .put(`/cart/update/${cartId}`, quantity)
     .then((res) => res?.data)
     .catch(() => null);
-  if (response?.success === true) {
+
+  if (response?.success) {
     getAllFromCart();
   }
+  return response;
 };
 
 export const deleteBookFromCart = async (cartId) => {
-  const response = axiosInstance
+  const response = await axiosInstance
     .delete(`/cart/delete/${cartId}`)
-    .then((res) => res?.data)
+    .then((res) => {
+      if (res?.data.success) {
+        getAllFromCart();
+      }
+      return res?.data;
+    })
     .catch(() => null);
-  if (response?.success === true) {
-    getAllFromCart();
-  }
+  return response;
 };
