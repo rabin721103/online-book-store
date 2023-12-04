@@ -1,4 +1,4 @@
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SiteLayout from "./site/SiteLayout";
 import HomePage from "./site/HomePage";
 import AdminLayout from "./admin/AdminLayout";
@@ -16,6 +16,7 @@ import BookDashboard from "./admin/Dashboard/BookDashboard";
 import UserDashboard from "./admin/Dashboard/UserDashboard";
 import Cart from "./site/cart/cart";
 import UserLayout from "./admin/components/UserLayout";
+import BookDetails from "./site/HomePage/BookDetails";
 
 const AppRoutes = () => {
   return (
@@ -25,7 +26,10 @@ const AppRoutes = () => {
           <Route index element={<HomePage />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+
+          <Route path="bookdetails/:id" element={<BookDetails />} />
         </Route>
+
         <Route
           path="/admin"
           element={
@@ -51,7 +55,7 @@ const AppRoutes = () => {
             </Protected>
           }
         >
-          <Route path="/cart" element={<Cart />} />
+          <Route index element={<Cart />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />

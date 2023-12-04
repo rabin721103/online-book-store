@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "reactstrap";
 import { addToCart, getAllFromCart } from "../../services/starWarsCharater";
+import { Link } from "react-router-dom";
 
 function Cards({ book }) {
   const handleClick1 = async () => {
@@ -18,12 +19,14 @@ function Cards({ book }) {
     <div style={{ margin: "40px" }}>
       <Card
         style={{
-          width: "18rem",
+          width: "26rem",
         }}
       >
-        <img alt="Sample" src="https://picsum.photos/300/200" />
+        <img alt="Sample" src="https://picsum.photos/250/200" />
         <CardBody>
-          <CardTitle tag="h5">{book.title}</CardTitle>
+          <CardTitle tag="h5">
+            <Link to={`bookdetails/${book?.bookId}`}>{book.title}</Link>
+          </CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             {book.author}
           </CardSubtitle>

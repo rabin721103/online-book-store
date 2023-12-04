@@ -18,7 +18,7 @@ import axiosInstance from "../../axiosInstance";
 // };
 
 export const getBooks = async (data) => {
-  return axiosInstance.get(`/books/`, data);
+  return axiosInstance.get(`/books?page={pageNo}`, data);
 };
 
 export const getUsers = async () => {

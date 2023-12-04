@@ -12,9 +12,9 @@ function Navbar(args) {
         className="navbar navbar-expand-lg navbar-light "
         style={{ background: "#6495ED" }}
       >
-        <a
+        <Link
           className="navbar-brand"
-          href="/"
+          to="/"
           style={{
             marginLeft: "40px",
             fontSize: "28px",
@@ -22,7 +22,7 @@ function Navbar(args) {
           }}
         >
           Book Store App
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -42,27 +42,27 @@ function Navbar(args) {
         >
           <ul className="navbar-nav mr-5 nav-tabs nav-justified">
             <li className="nav-item active">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" href="#">
                 Home <span className="sr-only">(current)</span>
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              {/* <a className="nav-link" href="#">
+              {/* <Link className="nav-link" href="#">
                 Books
-              </a> */}
+              </Link> */}
               <Link to="/" className="nav-link">
                 Books
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="cart">
+              <Link className="nav-link" to="/cart">
                 Cart
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
-              <a
+              <Link
                 className="nav-link dropdown-toggle"
-                href="#"
+                to="#"
                 id="navbarDropdown"
                 role="button"
                 data-toggle="dropdown"
@@ -70,18 +70,18 @@ function Navbar(args) {
                 aria-expanded="false"
               >
                 Categories
-              </a>
+              </Link>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="#">
                   Action
-                </a>
-                <a className="dropdown-item" href="#">
+                </Link>
+                <Link className="dropdown-item" to="#">
                   Fiction
-                </a>
+                </Link>
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="#">
                   ABC
-                </a>
+                </Link>
               </div>
             </li>
           </ul>
