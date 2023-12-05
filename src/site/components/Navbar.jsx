@@ -59,7 +59,7 @@ function Navbar(args) {
                 Cart
               </Link>
             </li>
-            <li className="nav-item dropdown">
+            {/* <li className="nav-item dropdown">
               <Link
                 className="nav-link dropdown-toggle"
                 to="#"
@@ -83,6 +83,16 @@ function Navbar(args) {
                   ABC
                 </Link>
               </div>
+            </li> */}
+            <li className="nav-item">
+              <Link className="nav-link" to="#">
+                Profile
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="#">
+                Logout
+              </Link>
             </li>
           </ul>
           <div
