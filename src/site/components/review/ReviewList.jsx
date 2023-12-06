@@ -1,14 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import StarRating from "./StarRating";
+import ReviewCard from "./ReviewCard";
+import ReviewAndRating from "./ReviewAndRating";
 
-const ReviewList = ({
-  reviews,
-  setReviews,
-  profile,
-  bookId,
-  setAverageRating,
-  setTotalNumRating,
-}) => {
+const ReviewList = ({ reviews, setReviews, userProfile, bookId }) => {
   const [reviewList, setReviewList] = useState([]);
   const [prevReview, setPrevReview] = useState("");
 
@@ -23,7 +18,7 @@ const ReviewList = ({
     reviews?.forEach((review) => {
       totalNumRate += 1;
       totalRate += review?.rating;
-      if (review?.userId === profile?.userId) {
+      if (review?.userId === userProfile?.userId) {
         setPrevReview(review);
       } else {
         otherReviews.push(review);
@@ -31,8 +26,6 @@ const ReviewList = ({
     });
 
     setReviewList(otherReviews);
-    setAverageRating(totalRate / totalNumRate);
-    setTotalNumRating(totalNumRate);
   };
 
   useEffect(() => {
@@ -55,36 +48,35 @@ const ReviewList = ({
             Edit Your Review
           </button>
           {editModel ? (
-            <StarRating
+            <ReviewAndRating
               bookId={bookId}
               prevReview={prevReview}
               setReviews={(data) => setReviews([...reviewList, data])}
               setEditModel={setEditModel}
             />
           ) : (
-            <div className="col-sm-10 border border-success rounded-1 mt-4">
-              <StarRating review={prevReview} />
+            <div className="col-sm-10 rounded-1 mt-4">
+              <ReviewCard review={prevReview} />
             </div>
           )}
         </div>
       ) : (
         <>
-          {profile && (
-            <StarRating
+          {userProfile && (
+            <ReviewAndRating
               bookId={bookId}
               setReviews={(data) => setReviews([...reviewList, data])}
             />
           )}
         </>
       )}
-
       <div className="col-sm-10">
-        {/* <div className="review-block"> /}
+        <div className="review-block">
           {reviewList &&
             reviewList?.map((review, idx) => (
               <ReviewCard key={idx} review={review} />
             ))}
-          {/ </div> */}
+        </div>
       </div>
     </div>
   );

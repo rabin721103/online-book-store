@@ -1,19 +1,48 @@
-import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import DataTable from "../components/DataTable";
-import { getBooks } from "../../services/starWarsCharater";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axiosInstance from "../../../axiosInstance";
+import { Pagination } from "react-bootstrap";
 
 const BookDashboard = () => {
+  const [books, setBooks] = useState([]);
   const navigate = useNavigate();
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ["getBooks"],
-    queryFn: () => getBooks(),
-    onError: (error) => {
+  const [queryParams, setQueryParams] = useSearchParams();
+  const [totalPages, setTotalPages] = useState(1);
+
+  const fetchBooks = async (page) => {
+    try {
+      const response = await axiosInstance.get(`/books/?page=${page}`);
+      const data = response?.data;
+      setBooks(data?.response);
+      setTotalPages(data?.totalPages);
+    } catch (error) {
       console.error("Error fetching books:", error);
-    },
-  });
+    }
+  };
+
+  useEffect(() => {
+    fetchBooks(queryParams.get("page") || 1);
+  }, [queryParams]);
+
+  const handlePageChange = (pageNumber) => {
+    setQueryParams({ page: pageNumber });
+  };
+
+  const handlePrevClick = () => {
+    const pageNo = queryParams.get("page");
+    if (pageNo > 1) {
+      setQueryParams({ page: pageNo - 1 });
+    }
+  };
+
+  const handleNextClick = () => {
+    const pageNo = parseInt(queryParams.get("page"));
+
+    if (pageNo < totalPages) {
+      setQueryParams({ page: pageNo + 1 });
+    }
+  };
 
   const columns = useMemo(() => {
     return [
@@ -77,19 +106,18 @@ const BookDashboard = () => {
               "Are you sure you want to delete this user?"
             );
             if (confirmDelete) {
-              axiosInstance
+              const response = axiosInstance
                 .delete(`/books/${bookId}`)
-                .then(() => {
-                  refetch();
-                  console.log("Delete successful for ID:", bookId);
-                  window.alert("Successfully deleted");
+                .then((res) => {
+                  res?.data;
                 })
-                .catch((error) => {
-                  console.error("Error deleting user:", error);
-                  window.alert("Could not delete the data");
-                });
+                .catch(() => null);
+              if (response?.success) {
+                const data = response?.data;
+                const books = data.filter((item) => item.bookId !== bookId);
+                setBooks(books);
+              }
             }
-            console.log("Delete clicked for ID:", bookId);
           };
 
           return (
@@ -112,14 +140,22 @@ const BookDashboard = () => {
       },
     ];
   }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
-      <DataTable columns={columns} data={data?.data?.response ?? []} />
+      <DataTable columns={columns} data={books ?? []} />
+      <Pagination style={{ float: "right" }}>
+        <Pagination.Prev onClick={handlePrevClick} />
+        {Array.from({ length: totalPages }, (_, index) => (
+          <Pagination.Item
+            key={index + 1}
+            active={index + 1 === queryParams.get("page")}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </Pagination.Item>
+        ))}
+        <Pagination.Next onClick={handleNextClick} />
+      </Pagination>
     </div>
   );
 };

@@ -1,27 +1,27 @@
 import { useEffect, useState } from "react";
 import "./BookDetails.css";
 import { useParams } from "react-router-dom";
-import axiosInstance from "../../../axiosInstance";
-import { addToCart } from "../../services/starWarsCharater";
 
-import StarRating from "../components/StarRating";
+import { addToCart, getBookById } from "../../services/starWarsCharater";
+
+import { useQuery } from "@tanstack/react-query";
+import ReviewList from "../components/review/ReviewList";
 
 function BookDetails() {
   const { id } = useParams();
-  const [bookdetails, setBookDetails] = useState(null);
+  const [reviews, setReviews] = useState("");
+
+  const { data } = useQuery({
+    queryKey: ["getBooks"],
+    queryFn: () => getBookById(id),
+  });
+  const userProfile = JSON.parse(localStorage.getItem("user"));
+
+  const book = data?.data?.response;
 
   useEffect(() => {
-    const fetchBookDetails = async () => {
-      try {
-        const response = await axiosInstance.get(`/books/${id}`);
-        setBookDetails(response?.data);
-      } catch (error) {
-        console.error("Error fetching book details:", error);
-      }
-    };
-
-    fetchBookDetails();
-  }, [id]);
+    setReviews(book?.reviews);
+  }, [book]);
 
   const cartHandler = async () => {
     const res1 = await addToCart(id);
@@ -42,21 +42,18 @@ function BookDetails() {
               </div>
             </div>
             <div className="col-md-6">
-              <h4 className="pro-d-title">{bookdetails?.response?.title}</h4>
-              <p>Author: {bookdetails?.response?.author}</p>
+              <h4 className="pro-d-title">{book?.title}</h4>
+              <p>Author: {book?.author}</p>
               <div className="product_meta">
                 <span className="posted_in">
                   {" "}
-                  <strong>Genre: {bookdetails?.response?.genre}</strong>
+                  <strong>Genre: {book?.genre}</strong>
                 </span>
               </div>
               <div className="m-bot15">
                 {" "}
                 <strong>Price : </strong>{" "}
-                <span className="pro-price">
-                  {" "}
-                  {bookdetails?.response?.price}
-                </span>
+                <span className="pro-price"> {book?.price}</span>
               </div>
               <p>
                 <button
@@ -67,7 +64,12 @@ function BookDetails() {
                   <i className="fa fa-shopping-cart"></i> Add to Cart
                 </button>
               </p>
-              <StarRating bookId={id} />
+              <ReviewList
+                bookId={book?.bookId}
+                userProfile={userProfile}
+                reviews={reviews}
+                setReviews={setReviews}
+              />
             </div>
           </div>
         </section>

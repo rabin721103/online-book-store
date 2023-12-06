@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../../../axiosInstance";
+import axiosInstance from "../../../../axiosInstance";
+import Rating from "./Rating";
 
-const StarRating = ({ bookId, prevReview, setReviews, setEditModel }) => {
+const ReviewAndRating = ({ bookId, prevReview, setReviews, setEditModel }) => {
   const [rating, setRating] = useState(0); // Initial rating
   const [comment, setComment] = useState("");
 
@@ -12,11 +13,12 @@ const StarRating = ({ bookId, prevReview, setReviews, setEditModel }) => {
       comment,
     });
     const response = JSON.parse(JSON.stringify(res));
+    console.log(response);
 
     if (response?.data?.success) {
-      window.alert("Added!!!");
       setReviews(response?.data?.response);
       setEditModel && setEditModel(false);
+      window.alert("Added!!!");
     } else {
       window.alert("Error");
     }
@@ -29,19 +31,10 @@ const StarRating = ({ bookId, prevReview, setReviews, setEditModel }) => {
   }, [prevReview]);
 
   return (
-    <>
-      <h2>Rate Here</h2>
-      <div className="star" style={{ padding: "10px" }}>
-        {[...Array(5)].map((_, index) => (
-          <span
-            key={index}
-            className={`fa fa-star ${index < rating ? "checked" : ""}`}
-            onClick={() => setRating(index)}
-          ></span>
-        ))}
-      </div>
+    <div>
+      <Rating rating={rating} setRating={setRating} />
       <form onSubmit={handleSubmit}>
-        <h2>Your Review</h2>
+        <h2>Your comment</h2>
         <label>
           <textarea
             value={comment}
@@ -54,8 +47,8 @@ const StarRating = ({ bookId, prevReview, setReviews, setEditModel }) => {
           Submit Review
         </button>
       </form>
-    </>
+    </div>
   );
 };
 
-export default StarRating;
+export default ReviewAndRating;

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Cards from "../components/Cards";
 import axiosInstance from "../../../axiosInstance";
 import { Col } from "reactstrap";
 import { Pagination } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
+import BookCard from "../components/books/BookCard";
 
 const HomePage = () => {
   const [books, setBooks] = useState([]);
@@ -53,7 +53,7 @@ const HomePage = () => {
       >
         {books.map((book, index) => (
           <Col key={index} sm={12} md={6} lg={4} xl={3}>
-            <Cards book={book} carts={[]} />
+            <BookCard book={book} carts={[]} />
           </Col>
         ))}
       </div>

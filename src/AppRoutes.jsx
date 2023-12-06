@@ -17,6 +17,7 @@ import UserDashboard from "./admin/Dashboard/UserDashboard";
 import Cart from "./site/cart/cart";
 import UserLayout from "./admin/components/UserLayout";
 import BookDetails from "./site/HomePage/BookDetails";
+import OrderTable from "./admin/Orders/OrderTable";
 
 const AppRoutes = () => {
   return (
@@ -45,6 +46,7 @@ const AppRoutes = () => {
           <Route path="edituser/:id" element={<EditUser />} />
           <Route path="editbook/:id" element={<EditBook />} />
           <Route path="addbook" element={<AddBook />} />
+          <Route path="order" element={<OrderTable />} />
         </Route>
 
         <Route

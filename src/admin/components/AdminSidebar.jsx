@@ -78,8 +78,12 @@ const AdminSidebar = () => {
                 <span>Orders</span>
               </button>
 
-              <div className="dropdown-menu" aria-labelledby="userDropdown">
-                <Link to="/admin/" className="dropdown-item">
+              <div
+                className="dropdown-menu"
+                aria-labelledby="userDropdown"
+                style={{ marginTop: "50px" }}
+              >
+                <Link to="/admin/order" className="dropdown-item">
                   List Orders
                 </Link>
                 <Link to="/admin/" className="dropdown-item">

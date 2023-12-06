@@ -17,8 +17,11 @@ import axiosInstance from "../../axiosInstance";
 //   return axiosInstance.put(`/people/${id}`, data);
 // };
 
-export const getBooks = async (data) => {
-  return axiosInstance.get(`/books?page={pageNo}`, data);
+export const getBooks = async () => {
+  return axiosInstance.get(`/books/?page={pageNo}`);
+};
+export const getBookById = async (id) => {
+  return axiosInstance.get(`/books/${id}`);
 };
 
 export const getUsers = async () => {

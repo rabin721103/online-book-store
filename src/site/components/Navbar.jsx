@@ -90,8 +90,8 @@ function Navbar(args) {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="#">
-                Logout
+              <Link className="nav-link" to="/Login">
+                Login
               </Link>
             </li>
           </ul>
