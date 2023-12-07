@@ -9,11 +9,12 @@ import {
 } from "reactstrap";
 import { addToCart, getAllFromCart } from "../../../services/starWarsCharater";
 import { Link } from "react-router-dom";
+import { emitSuccessToast } from "../../../toastify/ToastEmitter";
 
 function BookCard({ book }) {
   const handleClick1 = async () => {
     const res1 = await addToCart(book?.bookId);
-    window.alert(res1?.message);
+    emitSuccessToast(res1?.message);
   };
   return (
     <div style={{ margin: "40px" }}>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../../axiosInstance";
 import Rating from "./Rating";
+import { emitInfoToast } from "../../../toastify/ToastEmitter";
 
 const ReviewAndRating = ({ bookId, prevReview, setReviews, setEditModel }) => {
   const [rating, setRating] = useState(0); // Initial rating
@@ -13,12 +14,14 @@ const ReviewAndRating = ({ bookId, prevReview, setReviews, setEditModel }) => {
       comment,
     });
     const response = JSON.parse(JSON.stringify(res));
-    console.log(response);
 
     if (response?.data?.success) {
       setReviews(response?.data?.response);
       setEditModel && setEditModel(false);
-      window.alert("Added!!!");
+      console.log(response);
+      emitInfoToast(response?.message);
+      console.log("thansa");
+      // window.alert("Added!!!");
     } else {
       window.alert("Error");
     }

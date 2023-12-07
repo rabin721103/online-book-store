@@ -59,7 +59,7 @@ function Navbar(args) {
                 Cart
               </Link>
             </li>
-            {/* <li className="nav-item dropdown">
+            <li className="nav-item dropdown">
               <Link
                 className="nav-link dropdown-toggle"
                 to="#"
@@ -69,26 +69,26 @@ function Navbar(args) {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Categories
+                Profile
               </Link>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link className="dropdown-item" to="#">
-                  Action
+                  View Profile
                 </Link>
-                <Link className="dropdown-item" to="#">
-                  Fiction
+                <Link className="dropdown-item" to="/">
+                  Logout
                 </Link>
                 <div className="dropdown-divider"></div>
                 <Link className="dropdown-item" to="#">
-                  ABC
+                  Admin Dashboard
                 </Link>
               </div>
-            </li> */}
-            <li className="nav-item">
+            </li>
+            {/* <li className="nav-item">
               <Link className="nav-link" to="#">
                 Profile
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link className="nav-link" to="/Login">
                 Login

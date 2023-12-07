@@ -6,7 +6,10 @@ function OrderStatus({ order }) {
   //api
   const updateHandler = async (orderId, status) => {
     console.log(orderId, status);
-    const response = await axiosInstance.put(`/admin/order/${orderId}`, status);
+    const response = await axiosInstance.put(
+      `/admin/orders/${orderId}`,
+      status
+    );
     console.log(response);
   };
 
@@ -29,10 +32,10 @@ function OrderStatus({ order }) {
           </select>
         }
       </td>
-      <td>{order?.shippingAddress}</td>
-      <td>{order?.shippedTime}</td>
+      {/* <td>{order?.shippingAddress}</td>
+      <td>{order?.shippedTime}</td> */}
       <td>{order?.price}</td>
-      <td>{order?.qty}</td>
+      <td>{order?.quantity}</td>
       <td>{order?.totalPrice}</td>
       <td className="">
         <button

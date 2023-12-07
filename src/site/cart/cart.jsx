@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SingleCart from "./SingleCart";
 import { deleteBookFromCart, editCart } from "../../services/starWarsCharater";
+import { emitErrorToast, emitSuccessToast } from "../../toastify/ToastEmitter";
 
 function Cart() {
   const cart = localStorage.getItem("cart");
 
-  const [cartItems, setCartItems] = useState(JSON.parse(cart || []));
-
+  const [cartItems, setCartItems] = useState(JSON.parse(cart) || []);
   const [total, setTotal] = useState(0);
 
   const removeFromCart = async (cartId) => {
@@ -15,7 +15,7 @@ function Cart() {
     if (response?.success) {
       const carts = cartItems?.filter((item) => item?.cartId !== cartId);
       setCartItems(carts);
-      window.alert("Book Deleted Successfully");
+      emitSuccessToast(response?.message);
     }
   };
 
@@ -32,9 +32,11 @@ function Cart() {
         }
       });
       setCartItems(carts);
-      window.alert(response?.message);
+      emitSuccessToast(response?.message);
+      // window.alert(response?.message);
     } else {
-      window.alert(response?.message);
+      // window.alert(response?.message);
+      emitErrorToast(response.message);
     }
   };
 
@@ -62,6 +64,26 @@ function Cart() {
                 <i className="text-info font-weight-bold">{cartItems.length}</i>{" "}
                 items in your cart
               </p>
+              <div className="row mt-4 d-flex align-items-center">
+                <div className="col-sm-6 order-md-2 text-right">
+                  <Link to="/cart/checkout">
+                    <button
+                      disabled={cartItems?.length === 0}
+                      className="btn btn-outline-primary mb-4 btn-md pl-5 pr-5"
+                      style={{ float: "right" }}
+                    >
+                      Checkout
+                    </button>
+                  </Link>
+                </div>
+                <div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                  <Link to="/">
+                    <button className="btn btn-outline-danger ">
+                      <i className="fas fa-arrow-left mr-2"></i>Go Back
+                    </button>
+                  </Link>
+                </div>
+              </div>
               <table
                 id="shoppingCart"
                 className="table table-condensed table-responsive"
@@ -91,21 +113,6 @@ function Cart() {
                 </h4>
                 <h2 style={{ display: "inline-block" }}>Rs. {total}</h2>
               </div>
-            </div>
-          </div>
-          <div className="row mt-4 d-flex align-items-center">
-            <div className="col-sm-6 order-md-2 text-right">
-              <a
-                href="catalog.html"
-                className="btn btn-primary mb-4 btn-lg pl-5 pr-5"
-              >
-                Checkout
-              </a>
-            </div>
-            <div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-              <Link to="/">
-                <i className="fas fa-arrow-left mr-2"></i> Go Back
-              </Link>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Table } from "react-bootstrap";
 import OrderStatus from "./OrderStatus";
+import { getAllOrders } from "../../services/starWarsCharater";
 
 function OrderTable() {
   const { data } = useQuery({
@@ -8,9 +9,9 @@ function OrderTable() {
     queryFn: () => getAllOrders(),
   });
   const orders = data?.data?.response;
-  console.log(orders);
+  // console.log(orders);
   return (
-    <Table responsive>
+    <Table responsive style={{ marginTop: "70px", width: "100%" }}>
       <thead>
         <tr>
           <th>orderId</th>
@@ -19,20 +20,18 @@ function OrderTable() {
           <th>BookName</th>
           <th>Ordered At</th>
           <th>status</th>
-          <th>shippingAddress</th>
-          <th>shippedTime</th>
+          {/* <th>shippingAddress</th>
+          <th>shippedTime</th> */}
           <th>price</th>
           <th>quantity</th>
           <th>totalPrice</th>
         </tr>
       </thead>
       <tbody>
-        <tbody>
-          {orders?.map((order, idx) => (
-            // different compo
-            <OrderStatus key={idx} order={order} />
-          ))}
-        </tbody>
+        {orders?.map((order, idx) => (
+          // different compo
+          <OrderStatus key={idx} order={order} />
+        ))}
       </tbody>
     </Table>
   );

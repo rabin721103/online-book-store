@@ -6,6 +6,7 @@ import { addToCart, getBookById } from "../../services/starWarsCharater";
 
 import { useQuery } from "@tanstack/react-query";
 import ReviewList from "../components/review/ReviewList";
+import { emitInfoToast } from "../../toastify/ToastEmitter";
 
 function BookDetails() {
   const { id } = useParams();
@@ -25,7 +26,8 @@ function BookDetails() {
 
   const cartHandler = async () => {
     const res1 = await addToCart(id);
-    window.alert(res1?.message);
+    emitInfoToast(res1?.message);
+    // window.alert(res1?.message);
   };
 
   return (

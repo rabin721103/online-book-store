@@ -18,6 +18,7 @@ import Cart from "./site/cart/cart";
 import UserLayout from "./admin/components/UserLayout";
 import BookDetails from "./site/HomePage/BookDetails";
 import OrderTable from "./admin/Orders/OrderTable";
+import CheckoutPage from "./admin/Orders/CheckoutPage";
 
 const AppRoutes = () => {
   return (
@@ -58,6 +59,7 @@ const AppRoutes = () => {
           }
         >
           <Route index element={<Cart />} />
+          <Route path="checkout" element={<CheckoutPage />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />

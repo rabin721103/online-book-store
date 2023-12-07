@@ -75,3 +75,8 @@ export const deleteBookFromCart = async (cartId) => {
     .catch(() => null);
   return response;
 };
+
+export const getAllOrders = async () => {
+  const response = await axiosInstance.get(`/admin/orders`);
+  return response;
+};
