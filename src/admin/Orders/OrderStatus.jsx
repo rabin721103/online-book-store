@@ -1,16 +1,17 @@
 import { useState } from "react";
 import axiosInstance from "../../../axiosInstance";
+import { emitSuccessToast } from "../../toastify/ToastEmitter";
 
 function OrderStatus({ order }) {
   const [status, setStatus] = useState("");
   //api
   const updateHandler = async (orderId, status) => {
-    console.log(orderId, status);
     const response = await axiosInstance.put(
       `/admin/orders/${orderId}`,
       status
     );
-    console.log(response);
+    emitSuccessToast(response?.data?.message);
+    console.log(orderId, status);
   };
 
   return (

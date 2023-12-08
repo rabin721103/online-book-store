@@ -2,7 +2,7 @@ import { useState } from "react";
 import axiosInstance from "../../../axiosInstance";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { emitSuccessToast } from "../../toastify/ToastEmitter";
+import { emitErrorToast, emitSuccessToast } from "../../toastify/ToastEmitter";
 
 const Login = () => {
   const [username, setusername] = useState("");
@@ -32,7 +32,6 @@ const Login = () => {
       // localStorage.setItem("token", response?.response);
       getProfile();
       emitSuccessToast(response?.message);
-      console.log("Success toast emitted");
     }
   };
 

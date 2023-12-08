@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Label } from "reactstrap";
 import axiosInstance from "../../../axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { emitSuccessToast } from "../../toastify/ToastEmitter";
 
 function AddUser({ editUser }) {
   const navigate = useNavigate();
@@ -22,8 +23,10 @@ function AddUser({ editUser }) {
     try {
       if (editUser) {
         await axiosInstance.put(`/admin/users/${editUser?.userId}`, values);
+        emitSuccessToast("User Details Updated Successfully");
       } else {
         await axiosInstance.post("/auth/register", values);
+        emitSuccessToast("User created successfully");
       }
       navigate("/admin/userdashboard");
       // Reset the form after successful submission

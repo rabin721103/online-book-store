@@ -1,11 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar(args) {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState("user");
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const [search, setSearch] = useState("");
+
+  const handleSearch = () => {
+    if (search?.length > 0) {
+      setSearch("");
+      navigate(`/?query=${search}&page=1`);
+    }
+  };
+
+  // Function to handle logout
+
+  const handleLogout = () => {
+    // Perform logout actions (e.g., clear authentication token, etc.)
+    const confirmLogout = window.confirm("Do you want to logout?");
+    if (confirmLogout) {
+      localStorage.removeItem("cart");
+      localStorage.removeItem("user");
+      // Set isAuthenticated to false
+      setIsAuthenticated(false);
+      // Navigate to the home page or login page
+      navigate("/welcome");
+    }
+  };
   return (
     <div>
       <nav
@@ -23,7 +49,7 @@ function Navbar(args) {
         >
           Book Store App
         </Link>
-        <button
+        {/* <button
           className="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -33,7 +59,7 @@ function Navbar(args) {
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
-        </button>
+        </button> */}
 
         <div
           className="container"
@@ -42,9 +68,9 @@ function Navbar(args) {
         >
           <ul className="navbar-nav mr-5 nav-tabs nav-justified">
             <li className="nav-item active">
-              <Link className="nav-link" href="#">
+              {/* <Link className="nav-link" to="/">
                 Home <span className="sr-only">(current)</span>
-              </Link>
+              </Link> */}
             </li>
             <li className="nav-item">
               {/* <Link className="nav-link" href="#">
@@ -90,9 +116,15 @@ function Navbar(args) {
               </Link>
             </li> */}
             <li className="nav-item">
-              <Link className="nav-link" to="/Login">
-                Login
-              </Link>
+              {isAuthenticated ? (
+                <Link className="nav-link" to="#" onClick={handleLogout}>
+                  Logout
+                </Link>
+              ) : (
+                <Link className="nav-link" to="/login">
+                  Login
+                </Link>
+              )}
             </li>
           </ul>
           <div
@@ -108,6 +140,8 @@ function Navbar(args) {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 style={{
                   width: "200px",
                   height: "40px",
@@ -124,7 +158,8 @@ function Navbar(args) {
                   color: "white",
                   background: "blue",
                 }}
-                type="submit"
+                type="button"
+                onClick={handleSearch}
               >
                 Search
               </button>

@@ -3,6 +3,7 @@ import DataTable from "../components/DataTable";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axiosInstance from "../../../axiosInstance";
 import { Pagination } from "react-bootstrap";
+import { emitSuccessToast } from "../../toastify/ToastEmitter";
 
 const BookDashboard = () => {
   const [books, setBooks] = useState([]);
@@ -12,7 +13,7 @@ const BookDashboard = () => {
 
   const fetchBooks = async (page) => {
     try {
-      const response = await axiosInstance.get(`/books/?page=${page}`);
+      const response = await axiosInstance.get(`/books/?pageNo=${page}`);
       const data = response?.data;
       setBooks(data?.response);
       setTotalPages(data?.totalPages);
@@ -96,14 +97,12 @@ const BookDashboard = () => {
           const bookId = row.original.bookId;
 
           const handleEdit = () => {
-            console.log("Edit clicked for ID:", bookId);
             navigate(`/admin/editbook/${bookId}`);
           };
 
           const handleDelete = () => {
-            console.log("Delete clicked for ID:", bookId);
             const confirmDelete = window.confirm(
-              "Are you sure you want to delete this user?"
+              "Are you sure you want to delete this book?"
             );
             if (confirmDelete) {
               const response = axiosInstance
@@ -116,6 +115,8 @@ const BookDashboard = () => {
                 const data = response?.data;
                 const books = data.filter((item) => item.bookId !== bookId);
                 setBooks(books);
+                console.log("try");
+                emitSuccessToast(response?.data?.message);
               }
             }
           };

@@ -4,15 +4,19 @@ import { Col } from "reactstrap";
 import { Pagination } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import BookCard from "../components/books/BookCard";
+import Team from "../components/extras/Team";
 
 const HomePage = () => {
   const [books, setBooks] = useState([]);
   const [queryParams, setQueryParams] = useSearchParams();
   const [totalPages, setTotalPages] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchBooks = async (page) => {
+  const fetchBooks = async (query, page) => {
     try {
-      const response = await axiosInstance.get(`/books/?page=${page}`);
+      const response = await axiosInstance.get(
+        `/books/?query=${query}&pageNo=${page}`
+      );
       const data = response?.data;
       setBooks(data?.response);
       setTotalPages(data?.totalPages);
@@ -22,11 +26,14 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchBooks(queryParams.get("page") || 1);
+    const query = queryParams.get("query") ?? "";
+    const page = parseInt(queryParams.get("page") ?? 1);
+    setSearchQuery(query);
+    fetchBooks(query, page);
   }, [queryParams]);
 
   const handlePageChange = (pageNumber) => {
-    setQueryParams({ page: pageNumber });
+    setQueryParams({ query: searchQuery, page: pageNumber });
   };
 
   const handlePrevClick = () => {
@@ -46,31 +53,37 @@ const HomePage = () => {
 
   //local cart fetch json
   return (
-    <div>
-      <h3 style={{ marginLeft: "40px", marginTop: "10px" }}>Latest Books</h3>
-      <div
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
-      >
-        {books.map((book, index) => (
-          <Col key={index} sm={12} md={6} lg={4} xl={3}>
-            <BookCard book={book} carts={[]} />
-          </Col>
-        ))}
+    <>
+      <div>
+        <h3 style={{ marginLeft: "40px", marginTop: "10px" }}>Latest Books</h3>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {books.map((book, index) => (
+            <Col key={index} sm={12} md={6} lg={4} xl={3}>
+              <BookCard book={book} carts={[]} />
+            </Col>
+          ))}
+        </div>
+        <Pagination style={{ float: "right" }}>
+          <Pagination.Prev onClick={handlePrevClick} />
+          {Array.from({ length: totalPages }, (_, index) => (
+            <Pagination.Item
+              key={index + 1}
+              active={index + 1 === queryParams.get("page")}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next onClick={handleNextClick} />
+        </Pagination>
       </div>
-      <Pagination style={{ float: "right" }}>
-        <Pagination.Prev onClick={handlePrevClick} />
-        {Array.from({ length: totalPages }, (_, index) => (
-          <Pagination.Item
-            key={index + 1}
-            active={index + 1 === queryParams.get("page")}
-            onClick={() => handlePageChange(index + 1)}
-          >
-            {index + 1}
-          </Pagination.Item>
-        ))}
-        <Pagination.Next onClick={handleNextClick} />
-      </Pagination>
-    </div>
+    </>
   );
 };
 

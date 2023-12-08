@@ -4,6 +4,8 @@ import DataTable from "../components/DataTable";
 import { getUsers } from "../../services/starWarsCharater";
 import axiosInstance from "../../../axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { emitSuccessToast, emitWarnToast } from "../../toastify/ToastEmitter";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -52,7 +54,6 @@ const UserDashboard = () => {
           const userId = row.original.userId;
 
           const handleEdit = () => {
-            console.log("Edit clicked for ID:", userId);
             navigate(`/admin/edituser/${userId}`);
           };
 
@@ -66,13 +67,11 @@ const UserDashboard = () => {
                 .delete(`/admin/users/${userId}`)
                 .then(() => {
                   refetch();
-                  console.log("Delete successful for ID:", userId);
-                  // window.confirm("Deleted Successfully....");
-                  window.alert("Successfully deleted");
+                  toast.success("Successfully deleted user..");
                 })
                 .catch((error) => {
                   console.error("Error deleting user:", error);
-                  window.alert("Could not delete the data");
+                  toast.error("Could not delete data...");
                 });
             }
           };

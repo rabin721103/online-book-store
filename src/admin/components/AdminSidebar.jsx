@@ -1,5 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
-import { Nav, NavItem } from "reactstrap";
+import { Link } from "react-router-dom";
 import "./AdminSidebar.css";
 
 const AdminSidebar = () => {
@@ -86,9 +85,9 @@ const AdminSidebar = () => {
                 <Link to="/admin/order" className="dropdown-item">
                   List Orders
                 </Link>
-                <Link to="/admin/" className="dropdown-item">
+                {/* <Link to="/admin/" className="dropdown-item">
                   Manage Orders
-                </Link>
+                </Link> */}
               </div>
 
               <button
