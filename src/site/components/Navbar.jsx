@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function Navbar(args) {
+function Navbar() {
   const navigate = useNavigate();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState("user");
-
-  const toggle = () => setIsOpen(!isOpen);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
 
   const [search, setSearch] = useState("");
 
@@ -27,11 +25,22 @@ function Navbar(args) {
       localStorage.removeItem("cart");
       localStorage.removeItem("user");
       // Set isAuthenticated to false
-      setIsAuthenticated(false);
+      setUser(null);
       // Navigate to the home page or login page
-      navigate("/welcome");
+      navigate("/login");
     }
   };
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem("cart")));
+    //eslint-disable-next-line
+  }, [localStorage.getItem("cart")]);
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+    //eslint-disable-next-line
+  }, [localStorage.getItem("user")]);
+
   return (
     <div>
       <nav
@@ -80,46 +89,52 @@ function Navbar(args) {
                 Books
               </Link>
             </li>
+
+            {user && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/cart">
+                    Cart <p style={{ display: "inline" }}>{cart?.length}</p>
+                  </Link>
+                </li>
+                <li className="nav-item dropdown">
+                  <button
+                    className="nav-link dropdown-toggle"
+                    to="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {user?.username}
+                  </button>
+
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <Link className="dropdown-item" to="#">
+                      View Profile
+                    </Link>
+                    {user?.role === "ADMIN" && (
+                      <Link className="dropdown-item" to="/admin">
+                        Admin Dashboard
+                      </Link>
+                    )}
+                  </div>
+                </li>
+              </>
+            )}
+
             <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                Cart
-              </Link>
-            </li>
-            <li className="nav-item dropdown">
-              <Link
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Profile
-              </Link>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link className="dropdown-item" to="#">
-                  View Profile
-                </Link>
-                <Link className="dropdown-item" to="/">
+              {user ? (
+                <button
+                  className="btn btn-danger nav-link"
+                  onClick={handleLogout}
+                >
                   Logout
-                </Link>
-                <div className="dropdown-divider"></div>
-                <Link className="dropdown-item" to="#">
-                  Admin Dashboard
-                </Link>
-              </div>
-            </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link" to="#">
-                Profile
-              </Link>
-            </li> */}
-            <li className="nav-item">
-              {isAuthenticated ? (
-                <Link className="nav-link" to="#" onClick={handleLogout}>
-                  Logout
-                </Link>
+                </button>
               ) : (
                 <Link className="nav-link" to="/login">
                   Login

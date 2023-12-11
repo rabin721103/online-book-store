@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -7,15 +7,17 @@ import {
   CardText,
   CardTitle,
 } from "reactstrap";
-import { addToCart, getAllFromCart } from "../../../services/starWarsCharater";
+import { addToCart } from "../../../services/starWarsCharater";
 import { Link } from "react-router-dom";
 import { emitSuccessToast } from "../../../toastify/ToastEmitter";
 
 function BookCard({ book }) {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const handleClick1 = async () => {
     const res1 = await addToCart(book?.bookId);
     emitSuccessToast(res1?.message);
   };
+
   return (
     <div style={{ margin: "40px" }}>
       <Card
@@ -41,9 +43,15 @@ function BookCard({ book }) {
             <Button style={{ background: "##83e6b7" }}>
               <Link to={`bookdetails/${book?.bookId}`}>Book Details</Link>
             </Button>
-            <Button style={{ background: "DodgerBlue" }} onClick={handleClick1}>
-              Add to Cart
-            </Button>
+
+            {user && (
+              <Button
+                style={{ background: "DodgerBlue" }}
+                onClick={handleClick1}
+              >
+                Add to Cart
+              </Button>
+            )}
           </div>
         </CardBody>
       </Card>

@@ -57,15 +57,17 @@ function BookDetails() {
                 <strong>Price : </strong>{" "}
                 <span className="pro-price"> {book?.price}</span>
               </div>
-              <p>
-                <button
-                  className="btn btn-round btn-danger"
-                  onClick={cartHandler}
-                  type="button"
-                >
-                  <i className="fa fa-shopping-cart"></i> Add to Cart
-                </button>
-              </p>
+              {userProfile && (
+                <p>
+                  <button
+                    className="btn btn-round btn-danger"
+                    onClick={cartHandler}
+                    type="button"
+                  >
+                    <i className="fa fa-shopping-cart"></i> Add to Cart
+                  </button>
+                </p>
+              )}
               <ReviewList
                 bookId={book?.bookId}
                 userProfile={userProfile}

@@ -4,9 +4,8 @@
   font-family: Roboto;
   background-repeat: no-repeat;
   background-size: cover;
-  background: linear-gradient(120deg, #007bff, #d0314c);
+  background: linear-gradient(120deg, #4a599b, #0e4446);
   height: 100vh;
-  /* overflow: hidden;  */
 }
 
 .center {

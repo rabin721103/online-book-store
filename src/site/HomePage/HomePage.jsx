@@ -4,7 +4,6 @@ import { Col } from "reactstrap";
 import { Pagination } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import BookCard from "../components/books/BookCard";
-import Team from "../components/extras/Team";
 
 const HomePage = () => {
   const [books, setBooks] = useState([]);

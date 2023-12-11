@@ -45,6 +45,7 @@ export const addToCart = async (bookId) => {
     .post("/cart/add", bookId)
     .then((res) => res?.data)
     .catch(() => null);
+
   if (response?.success) {
     getAllFromCart();
   }

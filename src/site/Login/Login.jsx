@@ -2,7 +2,8 @@ import { useState } from "react";
 import axiosInstance from "../../../axiosInstance";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { emitErrorToast, emitSuccessToast } from "../../toastify/ToastEmitter";
+import { emitSuccessToast } from "../../toastify/ToastEmitter";
+import { getAllFromCart } from "../../services/starWarsCharater";
 
 const Login = () => {
   const [username, setusername] = useState("");
@@ -24,19 +25,23 @@ const Login = () => {
 
   const handleClick = async () => {
     const response = await axiosInstance
-      .post("/auth/login", { username, password })
+      .post("/auth/login", {
+        username: username.trim(),
+        password: password.trim(),
+      })
       .then((res) => res?.data)
       .catch(() => null);
 
     if (response?.success) {
       // localStorage.setItem("token", response?.response);
+      getAllFromCart();
       getProfile();
       emitSuccessToast(response?.message);
     }
   };
 
   return (
-    <div>
+    <div className="body-a">
       <div className="container">
         <div className="center">
           <h1>Login</h1>
