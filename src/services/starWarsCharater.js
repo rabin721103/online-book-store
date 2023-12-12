@@ -81,3 +81,8 @@ export const getAllOrders = async () => {
   const response = await axiosInstance.get(`/admin/orders`);
   return response;
 };
+export const getOrdersById = async () => {
+  const response = await axiosInstance.get("/order/user-orders");
+  console.log(response);
+  return response;
+};

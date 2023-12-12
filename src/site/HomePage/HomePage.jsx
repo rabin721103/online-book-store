@@ -53,8 +53,8 @@ const HomePage = () => {
   //local cart fetch json
   return (
     <>
-      <div>
-        <h3 style={{ marginLeft: "40px", marginTop: "10px" }}>Latest Books</h3>
+      <div style={{ backgroundColor: "#eee" }}>
+        <h3 style={{ marginLeft: "40px", marginTop: "1px" }}>Latest Books</h3>
         <div
           style={{
             display: "flex",
@@ -68,7 +68,7 @@ const HomePage = () => {
             </Col>
           ))}
         </div>
-        <Pagination style={{ float: "right" }}>
+        <Pagination style={{ float: "right", margin: "20px" }}>
           <Pagination.Prev onClick={handlePrevClick} />
           {Array.from({ length: totalPages }, (_, index) => (
             <Pagination.Item

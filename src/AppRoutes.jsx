@@ -19,6 +19,8 @@ import UserLayout from "./admin/components/UserLayout";
 import BookDetails from "./site/HomePage/BookDetails";
 import OrderTable from "./admin/Orders/OrderTable";
 import CheckoutPage from "./admin/Orders/CheckoutPage";
+import UserProfile from "./site/components/Profile/UserProfile";
+import Public from "./utils/Public";
 
 const AppRoutes = () => {
   return (
@@ -26,8 +28,32 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<SiteLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+
+          <Route
+            path="login"
+            element={
+              <Public>
+                <Login />
+              </Public>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <Public>
+                <Register />
+              </Public>
+            }
+          />
+
+          <Route
+            path="profile"
+            element={
+              <Protected>
+                <UserProfile />
+              </Protected>
+            }
+          />
 
           <Route path="bookdetails/:id" element={<BookDetails />} />
         </Route>

@@ -18,7 +18,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axiosInstance.post("/api/auth/register", formData);
+      const response = await axiosInstance.post("/auth/register", formData);
       console.log(response.data); // You can handle success response here
     } catch (error) {
       console.error("Registration failed", error);
@@ -26,24 +26,42 @@ const Register = () => {
     }
   };
   return (
-    <body>
+    <>
       <div className="body-a">
         <div className="container">
           <div className="center">
             <h1>Register Here</h1>
             <form onSubmit={handleSubmit}>
               <div className="txt_field">
-                <input type="text" name="name" required />
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
                 <span></span>
-                <label>Name</label>
+                <label>Username</label>
               </div>
               <div className="txt_field">
-                <input type="email" name="email" required />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
                 <span></span>
                 <label>Email</label>
               </div>
               <div className="txt_field">
-                <input type="password" name="password" required />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
                 <span></span>
                 <label>Password</label>
               </div>
@@ -55,7 +73,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </body>
+    </>
   );
 };
 

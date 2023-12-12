@@ -58,18 +58,6 @@ function Navbar() {
         >
           Book Store App
         </Link>
-        {/* <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button> */}
-
         <div
           className="container"
           id="navbarSupportedContent"
@@ -82,19 +70,31 @@ function Navbar() {
               </Link> */}
             </li>
             <li className="nav-item">
-              {/* <Link className="nav-link" href="#">
-                Books
-              </Link> */}
               <Link to="/" className="nav-link">
                 Books
               </Link>
             </li>
-
             {user && (
               <>
                 <li className="nav-item">
                   <Link className="nav-link" to="/cart">
-                    Cart <p style={{ display: "inline" }}>{cart?.length}</p>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>Cart</p>
+                      <p
+                        style={{
+                          marginLeft: "5px",
+                          color: "white",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {cart?.length}
+                      </p>
+                    </div>
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
@@ -114,7 +114,7 @@ function Navbar() {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                    <Link className="dropdown-item" to="#">
+                    <Link className="dropdown-item" to="/profile">
                       View Profile
                     </Link>
                     {user?.role === "ADMIN" && (
@@ -126,7 +126,6 @@ function Navbar() {
                 </li>
               </>
             )}
-
             <li className="nav-item">
               {user ? (
                 <button

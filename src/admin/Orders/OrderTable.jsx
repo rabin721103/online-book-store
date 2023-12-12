@@ -9,7 +9,7 @@ function OrderTable() {
     queryFn: () => getAllOrders(),
   });
   const orders = data?.data?.response;
-  // console.log(orders);
+
   return (
     <Table responsive style={{ marginTop: "70px", width: "100%" }}>
       <thead>
