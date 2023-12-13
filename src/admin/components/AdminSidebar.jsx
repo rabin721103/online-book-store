@@ -1,7 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./AdminSidebar.css";
+import { useEffect, useState } from "react";
 
 const AdminSidebar = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const handleLogout = () => {
+    // Perform logout actions (e.g., clear authentication token,. etc)
+    const confirmLogout = window.confirm("Do you want to logout?");
+    if (confirmLogout) {
+      localStorage.removeItem("user");
+      // user(null);
+      // Navigate to the home page or login page
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+    //eslint-disable-next-line
+  }, [localStorage.getItem("user")]);
+
   return (
     <div>
       <header>
@@ -135,19 +153,29 @@ const AdminSidebar = () => {
           >
             <i className="fas fa-bars"></i>
           </button>
-          <a className="navbar-brand" href="#">
+          <Link
+            className="navbar-brand"
+            style={{
+              marginLeft: "20px",
+              fontSize: "28px",
+              textDecoration: "bold",
+            }}
+          >
+            Book Store App
+          </Link>
+          {/* <a className="navbar-brand" href="#">
             <img
               src="../images/logo.png"
               height="25"
               alt="MDB Logo"
               loading="lazy"
             />
-          </a>
+          </a> */}
           <form className="d-none d-md-flex input-group w-auto my-auto">
             <input
               autoComplete="off"
               type="search"
-              className="form-control rounded"
+              className="form-control"
               placeholder="Search"
               style={{ minWidth: "225px" }}
             />
@@ -155,6 +183,13 @@ const AdminSidebar = () => {
               <i className="fas fa-search"></i>
             </span>
           </form>
+          <button
+            className="btn btn-danger"
+            onClick={handleLogout}
+            style={{ color: "white", marginLeft: "20px" }}
+          >
+            Logout
+          </button>
           <ul className="navbar-nav ms-auto d-flex flex-row">
             <li className="nav-item dropdown">
               <a

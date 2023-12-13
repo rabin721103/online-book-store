@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Register.css";
 import axiosInstance from "../../../axiosInstance";
+import { emitSuccessToast } from "../../toastify/ToastEmitter";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,9 @@ const Register = () => {
 
     try {
       const response = await axiosInstance.post("/auth/register", formData);
-      console.log(response.data); // You can handle success response here
+      console.log(response?.data?.message);
+      emitSuccessToast(response?.data?.message);
+      // You can handle success response here
     } catch (error) {
       console.error("Registration failed", error);
       // Handle error, show a message to the user, etc.

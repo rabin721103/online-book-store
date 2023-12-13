@@ -2,7 +2,7 @@ import { useState } from "react";
 import axiosInstance from "../../../axiosInstance";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { emitSuccessToast } from "../../toastify/ToastEmitter";
+import { emitErrorToast, emitSuccessToast } from "../../toastify/ToastEmitter";
 import { getAllFromCart } from "../../services/starWarsCharater";
 
 const Login = () => {
@@ -19,7 +19,9 @@ const Login = () => {
 
     if (response?.success) {
       localStorage.setItem("user", JSON.stringify(response?.response ?? ""));
-      response?.response?.role === "ADMIN" ? navigate("/admin") : navigate("/");
+      response?.response?.role === "ADMIN"
+        ? navigate("/admin/welcomedashboard")
+        : navigate("/");
     }
   };
 
@@ -37,7 +39,7 @@ const Login = () => {
       getAllFromCart();
       getProfile();
       emitSuccessToast(response?.message);
-    }
+    } else emitErrorToast(response?.message);
   };
 
   return (

@@ -5,7 +5,6 @@ import { getUsers } from "../../services/starWarsCharater";
 import axiosInstance from "../../../axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { emitSuccessToast, emitWarnToast } from "../../toastify/ToastEmitter";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -77,7 +76,7 @@ const UserDashboard = () => {
           };
 
           return (
-            <div>
+            <div style={{ alignItems: "center" }}>
               <button
                 className="btn btn-primary"
                 onClick={() => handleEdit(userId)}
@@ -86,6 +85,7 @@ const UserDashboard = () => {
               </button>
               <button
                 className="btn btn-danger"
+                style={{ marginLeft: "5px" }}
                 onClick={() => handleDelete(userId)}
               >
                 Delete
